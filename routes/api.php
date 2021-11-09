@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/projects',[ProjectController::class,'index']);
 Route::post('/projects/create',[ProjectController::class,'store']);
 Route::get('/projects/{id}',[ProjectController::class,'show'])->whereNumber('id');
-Route::patch('/technologies/{id}',[ProjectController::class,'update'])->whereNumber('id');
-Route::delete('/projects{id}',[ProjectController::class,'destroy'])->whereNumber('id');
+Route::patch('/technologies/update/{id}',[ProjectController::class,'update'])->whereNumber('id');
+Route::delete('/projects/delete/{id}',[ProjectController::class,'destroy'])->whereNumber('id');
 
 
 // creation des routes pour les technologies:
