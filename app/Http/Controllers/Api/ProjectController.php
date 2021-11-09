@@ -16,7 +16,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return Project::paginate();
+        return ProjectResource::collection(Project::paginate());
     }
 
     /**
@@ -27,20 +27,8 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-         $project=[
-           'title'=>$request->title,
-            'description'=> $request->description,
-            'image_url'=>$request->imageURL
-       ];
-
-        if (Project::create($project)){
-            return response()->json([
-                'success' => 'Le projet a été crée avec succès!'
-            ],200);
-        }
-      return response()->json([
-                'success' => 'Echec de la creation du projet!'
-            ],500);
+       return $this->execute(Project::create($request->all()),"Le project","crée");
+       
     }
 
     /**
@@ -63,7 +51,8 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        //
+        
+        return $this->execute($project->update($request->all()),"Le projet","modifié ");
     }
 
     /**
@@ -74,6 +63,18 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+       return $this->execute($project->delete($project),"Le projet","supprimé ");
     }
+
+    private function execute($action, string $message,string $method){
+          if ($action){
+            return response()->json([
+                'success' => $message." a été ".$method."avec succès!"
+            ],200);
+           }
+            return response()->json([
+                'success' => "Echec de la creation ".$message,
+            ]);
+    }
+
 }
