@@ -16,8 +16,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects=Project::paginate();
-        return $projects->toJson();
+        return Project::paginate();
     }
 
     /**
