@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Project;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
-class ProjectController extends Controller
+class TechnologyController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +14,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return Project::paginate();
+        //
     }
 
     /**
@@ -26,12 +25,7 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-         Project::create([
-           'title'=>$request->title,
-            'description'=> $request->description,
-            'image_url'=>$request->imageURL
-       ]);
-      return Project::paginate();
+        //
     }
 
     /**
@@ -42,7 +36,7 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        return Project::findOrFail($id);
+        //
     }
 
     /**
