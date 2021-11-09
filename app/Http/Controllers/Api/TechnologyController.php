@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\TechnologyResource;
 use App\Models\Technology;
 use Illuminate\Http\Request;
 
@@ -37,7 +38,7 @@ class TechnologyController extends Controller
      */
     public function show(Technology $technology)
     {
-        //
+        return new TechnologyResource($technology);
     }
 
     /**
