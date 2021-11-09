@@ -66,15 +66,6 @@ class ProjectController extends Controller
        return $this->execute($project->delete($project),"Le projet","supprimé ");
     }
 
-    private function execute($action, string $message,string $method){
-          if ($action){
-            return response()->json([
-                'success' => $message." a été ".$method."avec succès!"
-            ],200);
-           }
-            return response()->json([
-                'success' => "Echec de la creation ".$message,
-            ]);
-    }
+   
 
 }

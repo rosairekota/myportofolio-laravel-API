@@ -60,6 +60,6 @@ class TechnologyController extends Controller
      */
     public function destroy(Technology $technology)
     {
-        //
+         return $this->execute($technology->delete($technology),"La technologie","supprimée ");
     }
 }
