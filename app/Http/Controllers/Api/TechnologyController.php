@@ -49,7 +49,7 @@ class TechnologyController extends Controller
      */
     public function update(Request $request, Technology $technology)
     {
-        //
+         return $this->execute($technology->update($request->all()),"La technologie","editée ");
     }
 
     /**
