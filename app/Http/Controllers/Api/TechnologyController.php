@@ -27,7 +27,7 @@ class TechnologyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $this->execute(Technology::create($request->all()),"La technologie","ajoutée ");
     }
 
     /**
