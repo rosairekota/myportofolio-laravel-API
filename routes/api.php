@@ -6,17 +6,8 @@ use Illuminate\Support\Facades\Route;
 
 
 // creation des routes pour les projets:
-Route::get('/projects',[ProjectController::class,'index']);
-Route::post('/projects/create',[ProjectController::class,'store']);
-Route::get('/projects/{id}',[ProjectController::class,'show'])->whereNumber('id');
-Route::patch('/technologies/update/{id}',[ProjectController::class,'update'])->whereNumber('id');
-Route::delete('/projects/delete/{id}',[ProjectController::class,'destroy'])->whereNumber('id');
-
+Route::apiResource('project',ProjectController::class);
 
 // creation des routes pour les technologies:
 
-Route::get('/technologies',[TechnologyController::class,'index']);
-Route::post('/technologies/create',[TechnologyController::class,'store']);
-Route::get('/technologies/{id}',[TechnologyController::class,'show'])->whereNumber('id');
-Route::patch('/technologies/update/{id}',[TechnologyController::class,'update'])->whereNumber('id');
-Route::delete('/technologies/delete/{id}',[TechnologyController::class,'destroy'])->whereNumber('id');
+Route::apiResource('technology',TechnologyController::class);

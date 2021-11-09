@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ProjectResource;
 
 class ProjectController extends Controller
 {
@@ -15,7 +16,8 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return Project::paginate();
+        $projects=Project::paginate();
+        return $projects->toJson();
     }
 
     /**
@@ -26,33 +28,41 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-         Project::create([
+         $project=[
            'title'=>$request->title,
             'description'=> $request->description,
             'image_url'=>$request->imageURL
-       ]);
-      return Project::paginate();
+       ];
+
+        if (Project::create($project)){
+            return response()->json([
+                'success' => 'Le projet a été crée avec succès!'
+            ],200);
+        }
+      return response()->json([
+                'success' => 'Echec de la creation du projet!'
+            ],500);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Project $project)
     {
-        return Project::findOrFail($id);
+        return new ProjectResource($project);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Project $project)
     {
         //
     }
@@ -60,10 +70,10 @@ class ProjectController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Project $project)
     {
         //
     }
