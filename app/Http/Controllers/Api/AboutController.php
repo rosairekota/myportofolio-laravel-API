@@ -27,6 +27,7 @@ class AboutController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate($this->rules());
         return new AboutResource(About::create($request->all()));
     }
 
@@ -50,6 +51,7 @@ class AboutController extends Controller
      */
     public function update(Request $request, About $about)
     {
+        $request->validate($this->rules());
         return new AboutResource($about->update($request->all()));
     }
 
@@ -62,5 +64,25 @@ class AboutController extends Controller
     public function destroy(About $about)
     {
         return $about->delete($about);
+    }
+
+
+    /**
+     * @return Array
+     */
+    public function rules():array
+    {
+        return [
+            'firstname'=>'required',
+            'lastname'=>'required',
+            'middlename'=>'required',
+            'description'=>'required',
+            'github_link'=>'required',
+            'linkedin_link'=>'required',
+            'twitter_link'=>'required',
+            'email'=>'required',
+            'phone'=>'required|max:13',
+            'address'=>'required',
+        ];
     }
 }

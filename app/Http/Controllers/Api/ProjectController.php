@@ -41,7 +41,8 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-       return new ProjectResource(Project::create($request->all()));
+        $request->validate($this->rules());
+        return new ProjectResource(Project::create($request->all()));
 
     }
 
@@ -74,7 +75,7 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-
+        $request->validate($this->rules());
         return new ProjectResource($project->update($request->all()));
     }
 
@@ -89,6 +90,15 @@ class ProjectController extends Controller
        return new ProjectResource($project->delete($project));
     }
 
-
+   public function rules():array
+    {
+        return [
+            'title'=>'required',
+            'description'=>'required',
+            'image_url'=>'required',
+            'github_link'=>'required',
+            'website_link'=>'required',
+        ];
+    }
 
 }

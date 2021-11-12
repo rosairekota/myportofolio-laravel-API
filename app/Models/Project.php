@@ -13,7 +13,7 @@ class Project extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = ['title','description','image_url'];
+    protected $fillable = ['title','description','image_url','website_link','github_link'];
 
     public function technologies(){
         return $this->belongsToMany(Technology::class);

@@ -10,7 +10,7 @@ class Technology extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $fillable=['name','image_url'];
+    protected $fillable=['name','icon'];
 
     public function projects(){
         return $this->belongsToMany(Project::class);

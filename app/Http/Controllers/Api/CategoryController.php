@@ -27,6 +27,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate($this->rules());
         return new CategoryResource(Category::create($request->all()));
     }
 
@@ -50,6 +51,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
+        $request->validate($this->rules());
         return new CategoryResource($category->update($request->all()));
     }
 
@@ -62,5 +64,14 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         return $category->delete($category);
+    }
+    /**
+     * @return Array
+     */
+    public function rules():array
+    {
+        return [
+            'title'=>'required|min:5',
+        ];
     }
 }

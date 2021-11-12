@@ -29,6 +29,7 @@ class SkillController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate($this->rules());
         return new SkillResource(Skill::create($request->all()));
     }
 
@@ -52,6 +53,7 @@ class SkillController extends Controller
      */
     public function update(Request $request, Skill $skill)
     {
+        $request->validate($this->rules());
         return new SkillResource($skill->update($request->all()));
     }
 
@@ -64,5 +66,13 @@ class SkillController extends Controller
     public function destroy(Skill $skill)
     {
         return $skill->delete($skill);
+    }
+
+    public function rules():array
+    {
+        return [
+            'name'=>'required',
+            'progress'=>'required',
+        ];
     }
 }

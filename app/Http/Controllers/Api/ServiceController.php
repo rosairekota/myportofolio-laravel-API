@@ -16,6 +16,7 @@ class ServiceController extends Controller
      */
     public function index()
     {
+
         return ServiceResource::collection(Service::all());
     }
 
@@ -27,6 +28,7 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate($this->rules());
         return new ServiceResource(Service::create($request->all()));
     }
 
@@ -50,6 +52,7 @@ class ServiceController extends Controller
      */
     public function update(Request $request, Service $service)
     {
+        $request->validate($this->rules());
         return new ServiceResource($service->update($request->all()));
     }
 
@@ -62,5 +65,13 @@ class ServiceController extends Controller
     public function destroy(Service $service)
     {
         return $service->delete($service);
+    }
+     public function rules():array
+    {
+        return [
+            'name'=>'required',
+            'icon'=>'required',
+            'description'=>'required',
+        ];
     }
 }
