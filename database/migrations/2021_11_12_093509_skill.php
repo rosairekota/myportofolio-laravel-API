@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePivotTableProjectTechnology extends Migration
+class Skill extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreatePivotTableProjectTechnology extends Migration
      */
     public function up()
     {
-        Schema::create('project_technology', function (Blueprint $table) {
+        Schema::create('skills',function(Blueprint $table){
             $table->id();
-            $table->foreignId('project_id')->constrained("projects")->onDelete('cascade');
-            $table->foreignId('technology_id')->constrained("technologies")->onDelete('cascade');
+            $table->string('name');
+            $table->integer('progress');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreatePivotTableProjectTechnology extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('project_technology');
+        Schema::dropIfExists('skills');
     }
 }
