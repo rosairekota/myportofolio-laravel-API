@@ -9,6 +9,7 @@ use OpenApi\Annotations\Post;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProjectResource;
 
+
 class ProjectController extends Controller
 {
       /**
@@ -30,6 +31,7 @@ class ProjectController extends Controller
     /**
      * @OA\Post(
      *     path="/api/projects",
+     *     requestBody={""},
      *     @OA\Response(response="200", description="Display a listing of projects.")
      * )
      */

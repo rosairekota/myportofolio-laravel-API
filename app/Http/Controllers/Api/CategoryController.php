@@ -9,6 +9,13 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+
+    /**
+     * @OA\Get(
+     *     path="/api/categories",
+     *     @OA\Response(response="200", description="Display a listing of projects.")
+     * )
+     */
     /**
      * Display a listing of the resource.
      *

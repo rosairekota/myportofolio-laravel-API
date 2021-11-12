@@ -2,13 +2,20 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\ServiceResource;
 use App\Models\Service;
 use Illuminate\Http\Request;
+use OpenApi\Annotations\Get;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\ServiceResource;
 
 class ServiceController extends Controller
 {
+    /**
+     * @OA\Get(
+     *     path="/api/services",
+     *     @OA\Response(response="200", description="Display a listing of projects.")
+     * )
+     */
     /**
      * Display a listing of the resource.
      *

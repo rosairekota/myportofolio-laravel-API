@@ -5,6 +5,24 @@
         "version": "0.1"
     },
     "paths": {
+        "/api/abouts": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Display a listing of projects."
+                    }
+                }
+            }
+        },
+        "/api/categories": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Display a listing of projects."
+                    }
+                }
+            }
+        },
         "/api/projects": {
             "get": {
                 "responses": {
@@ -14,6 +32,9 @@
                 }
             },
             "post": {
+                "requestBody": [
+                    ""
+                ],
                 "responses": {
                     "200": {
                         "description": "Display a listing of projects."
@@ -24,6 +45,33 @@
         "/api/projects/{id}": {
             "get": {
                 "parameters": "id",
+                "responses": {
+                    "200": {
+                        "description": "Display a listing of projects."
+                    }
+                }
+            }
+        },
+        "/api/services": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Display a listing of projects."
+                    }
+                }
+            }
+        },
+        "/api/skills": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Display a listing of projects."
+                    }
+                }
+            }
+        },
+        "/api/technologies": {
+            "get": {
                 "responses": {
                     "200": {
                         "description": "Display a listing of projects."

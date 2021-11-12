@@ -2,13 +2,21 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\AboutResource;
 use App\Models\About;
 use Illuminate\Http\Request;
+use OpenApi\Annotations\Get;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\AboutResource;
 
 class AboutController extends Controller
 {
+    /**
+     * @OA\Get(
+     *     path="/api/abouts",
+     *     @OA\Response(response="200", description="Display a listing of projects.")
+     * )
+     */
+
     /**
      * Display a listing of the resource.
      *

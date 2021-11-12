@@ -5,12 +5,19 @@ namespace App\Http\Controllers\Api;
 use App\Models\Skill;
 use App\Models\Technology;
 use Illuminate\Http\Request;
+use OpenApi\Annotations\Get;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\SkillResource;
 use App\Http\Resources\TechnologyResource;
 
 class SkillController extends Controller
 {
+    /**
+     * @OA\Get(
+     *     path="/api/skills",
+     *     @OA\Response(response="200", description="Display a listing of projects.")
+     * )
+     */
     /**
      * Display a listing of the resource.
      *
