@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Skill;
 use Illuminate\Http\Request;
 
-class SkillsController extends Controller
+class SkillController extends Controller
 {
     /**
      * Display a listing of the resource.

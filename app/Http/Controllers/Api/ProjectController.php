@@ -5,27 +5,34 @@ namespace App\Http\Controllers\Api;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use OpenApi\Annotations\Get;
+use OpenApi\Annotations\Post;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProjectResource;
 
 class ProjectController extends Controller
 {
-    /**
+      /**
+     * @OA\Get(
+     *     path="/api/projects",
+     *     @OA\Response(response="200", description="Display a listing of projects.")
+     * )
+     */
+     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
-     */
-      /**
-     * @OA\Get(
-     *     path="/projects",
-     *     @OA\Response(response="200", description="Display a listing of projects.")
-     * )
      */
     public function index()
     {
         return ProjectResource::collection(Project::all());
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/projects",
+     *     @OA\Response(response="200", description="Display a listing of projects.")
+     * )
+     */
     /**
      * Store a newly created resource in storage.
      *
@@ -37,6 +44,15 @@ class ProjectController extends Controller
        return $this->execute(Project::create($request->all()),"Le project","crée");
 
     }
+
+
+   /**
+     * @OA\Get(
+     *     path="/api/projects/{id}",
+     *     parameters="id",
+     *     @OA\Response(response="200", description="Display a listing of projects.")
+     * )
+     */
 
     /**
      * Display the specified resource.
