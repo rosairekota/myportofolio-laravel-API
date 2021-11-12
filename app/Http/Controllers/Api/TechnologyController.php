@@ -27,7 +27,7 @@ class TechnologyController extends Controller
      */
     public function store(Request $request)
     {
-        return $this->execute(Technology::create($request->all()),"La technologie","ajoutée ");
+        return new TechnologyResource(Technology::create($request->all()));
     }
 
     /**
@@ -50,7 +50,7 @@ class TechnologyController extends Controller
      */
     public function update(Request $request, Technology $technology)
     {
-         return $this->execute($technology->update($request->all()),"La technologie","editée ");
+         return new TechnologyResource($technology->update($request->all()));
     }
 
     /**
@@ -61,6 +61,6 @@ class TechnologyController extends Controller
      */
     public function destroy(Technology $technology)
     {
-         return $this->execute($technology->delete($technology),"La technologie","supprimée ");
+         return $technology->delete($technology);
     }
 }
