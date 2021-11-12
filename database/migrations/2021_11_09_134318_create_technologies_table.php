@@ -17,6 +17,7 @@ class CreateTechnologiesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('icon')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
