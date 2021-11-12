@@ -6,8 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 
 // creation des routes pour les projets:
-Route::apiResource('project',ProjectController::class);
+Route::apiResource('projects', ProjectController::class);
 
 // creation des routes pour les technologies:
-
-Route::apiResource('technology',TechnologyController::class);
+Route::apiResource('technologies', TechnologyController::class);

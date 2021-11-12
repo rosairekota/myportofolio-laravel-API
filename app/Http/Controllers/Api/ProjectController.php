@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Project;
 use Illuminate\Http\Request;
+use OpenApi\Annotations\Get;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProjectResource;
 
@@ -14,9 +15,15 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+      /**
+     * @OA\Get(
+     *     path="/projects",
+     *     @OA\Response(response="200", description="Display a listing of projects.")
+     * )
+     */
     public function index()
     {
-        return ProjectResource::collection(Project::paginate());
+        return ProjectResource::collection(Project::all());
     }
 
     /**
@@ -28,7 +35,7 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
        return $this->execute(Project::create($request->all()),"Le project","crée");
-       
+
     }
 
     /**
@@ -51,7 +58,7 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        
+
         return $this->execute($project->update($request->all()),"Le projet","modifié ");
     }
 
@@ -66,6 +73,6 @@ class ProjectController extends Controller
        return $this->execute($project->delete($project),"Le projet","supprimé ");
     }
 
-   
+
 
 }

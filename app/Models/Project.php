@@ -10,7 +10,7 @@ class Project extends Model
 {
     use HasFactory;
 
-    protected $fillable=['title','description','image_url'];
+    protected $fillable = ['title','description','image_url'];
 
     public function technologies(){
         return $this->belongsToMany(Technology::class);
