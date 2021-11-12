@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ServiceResource;
 use App\Models\Service;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,7 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        //
+        return ServiceResource::collection(Service::all());
     }
 
     /**
@@ -26,7 +27,7 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return new ServiceResource(Service::create($request->all()));
     }
 
     /**
@@ -37,7 +38,7 @@ class ServiceController extends Controller
      */
     public function show(Service $service)
     {
-        //
+        return new ServiceResource($service);
     }
 
     /**
@@ -49,7 +50,7 @@ class ServiceController extends Controller
      */
     public function update(Request $request, Service $service)
     {
-        //
+        return new ServiceResource($service->update($request->all()));
     }
 
     /**
@@ -60,6 +61,6 @@ class ServiceController extends Controller
      */
     public function destroy(Service $service)
     {
-        //
+        return $service->delete($service);
     }
 }
