@@ -41,7 +41,7 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-       return $this->execute(Project::create($request->all()),"Le project","crée");
+       return new ProjectResource(Project::create($request->all()));
 
     }
 
@@ -75,7 +75,7 @@ class ProjectController extends Controller
     public function update(Request $request, Project $project)
     {
 
-        return $this->execute($project->update($request->all()),"Le projet","modifié ");
+        return new ProjectResource($project->update($request->all()));
     }
 
     /**
@@ -86,7 +86,7 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-       return $this->execute($project->delete($project),"Le projet","supprimé ");
+       return new ProjectResource($project->delete($project));
     }
 
 
