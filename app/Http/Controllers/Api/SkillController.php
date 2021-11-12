@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Models\Skill;
+use App\Models\Technology;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\SkillResource;
+use App\Http\Resources\TechnologyResource;
 
 class SkillController extends Controller
 {
@@ -15,7 +18,7 @@ class SkillController extends Controller
      */
     public function index()
     {
-        //
+        return SkillResource::collection(Skill::all());
     }
 
     /**
@@ -26,7 +29,7 @@ class SkillController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return new SkillResource(Skill::create($request->all()));
     }
 
     /**
@@ -37,7 +40,7 @@ class SkillController extends Controller
      */
     public function show(Skill $skill)
     {
-        //
+        return new SkillResource($skill);
     }
 
     /**
@@ -49,7 +52,7 @@ class SkillController extends Controller
      */
     public function update(Request $request, Skill $skill)
     {
-        //
+        return new SkillResource($skill->update($request->all()));
     }
 
     /**
@@ -60,6 +63,6 @@ class SkillController extends Controller
      */
     public function destroy(Skill $skill)
     {
-        //
+        return $skill->delete($skill);
     }
 }
