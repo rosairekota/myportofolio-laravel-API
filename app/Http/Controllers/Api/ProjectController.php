@@ -12,13 +12,13 @@ use App\Http\Resources\ProjectResource;
 
 class ProjectController extends Controller
 {
-      /**
+    /**
      * @OA\Get(
      *     path="/api/projects",
      *     @OA\Response(response="200", description="Display a listing of projects.")
      * )
      */
-     /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -95,11 +95,11 @@ class ProjectController extends Controller
    public function rules():array
     {
         return [
-            'title'=>'required',
-            'description'=>'required',
-            'image_url'=>'required',
-            'github_link'=>'required',
-            'website_link'=>'required',
+        'title'             =>'required',
+            'description'   =>'required',
+            'image_url'     =>'required',
+            'github_link'   =>'required',
+            'website_link'  =>'required',
         ];
     }
 

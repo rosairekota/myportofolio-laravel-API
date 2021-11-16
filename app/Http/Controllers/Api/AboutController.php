@@ -35,8 +35,8 @@ class AboutController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate($this->rules());
-        return new AboutResource(About::create($request->all()));
+        $newProject=$request->validate($this->createRules());
+        return new AboutResource(About::create($newProject));
     }
 
     /**
@@ -59,8 +59,8 @@ class AboutController extends Controller
      */
     public function update(Request $request, About $about)
     {
-        $request->validate($this->rules());
-        return new AboutResource($about->update($request->all()));
+        $project=$request->validate($this->updateRules());
+        return new AboutResource($about->update($project));
     }
 
     /**
@@ -78,19 +78,37 @@ class AboutController extends Controller
     /**
      * @return Array
      */
-    public function rules():array
+    public function createRules():array
     {
         return [
-            'firstname'=>'required',
-            'lastname'=>'required',
-            'middlename'=>'required',
+            'firstname'=>'required|max:20',
+            'lastname'=>'required|max:20',
+            'middlename'=>'required|max:20',
             'description'=>'required',
-            'github_link'=>'required',
-            'linkedin_link'=>'required',
-            'twitter_link'=>'required',
-            'email'=>'required',
+            'github_link'=>'required|max:50',
+            'linkedin_link'=>'required|max:50',
+            'twitter_link'=>'required|max:50',
+            'email'=>'required|max:20',
             'phone'=>'required|max:13',
             'address'=>'required',
+        ];
+    }
+    /**
+     * @return Array
+     */
+    public function updateRules():array
+    {
+         return [
+            'firstname'=>'max:20',
+            'lastname'=>'max:20',
+            'middlename'=>'max:20',
+            'description'=>'required',
+            'github_link'=>'max:50',
+            'linkedin_link'=>'max:50',
+            'twitter_link'=>'max:50',
+            'email'=>'max:20',
+            'phone'=>'max:13',
+            'address'=>'max:200',
         ];
     }
 }
