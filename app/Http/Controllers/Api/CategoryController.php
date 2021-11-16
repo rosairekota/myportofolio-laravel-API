@@ -56,10 +56,10 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $model)
+    public function update(Request $request, Category $category)
     {
-         $category=$request->validate($this->createRules());
-        return new CategoryResource($model->update($category));
+        $model=$request->validate($this->createRules());
+        return new CategoryResource($category->update($model));
     }
 
     /**

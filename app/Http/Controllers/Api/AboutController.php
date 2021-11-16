@@ -35,8 +35,8 @@ class AboutController extends Controller
      */
     public function store(Request $request)
     {
-        $newabout=$request->validate($this->createRules());
-        return new AboutResource(About::create($newabout));
+        $newAbout = $request->validate($this->createRules());
+        return new AboutResource(About::create($newAbout));
     }
 
     /**
@@ -57,10 +57,10 @@ class AboutController extends Controller
      * @param  \App\Models\About  $about
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, About $model)
+    public function update(Request $request, About $about)
     {
-        $about=$request->validate($this->updateRules());
-        return new AboutResource($model->update($about));
+        $model = $request->validate($this->updateRules());
+        return new AboutResource($about->update($model));
     }
 
     /**
@@ -81,16 +81,16 @@ class AboutController extends Controller
     public function createRules():array
     {
         return [
-            'firstname'=>'required|max:20',
-            'lastname'=>'required|max:20',
-            'middlename'=>'required|max:20',
-            'description'=>'required',
-            'github_link'=>'required|max:50',
-            'linkedin_link'=>'required|max:50',
-            'twitter_link'=>'required|max:50',
-            'email'=>'required|max:20',
-            'phone'=>'required|max:13',
-            'address'=>'required',
+            'firstname'     =>'required|max:20',
+            'lastname'      =>'required|max:20',
+            'middlename'    =>'required|max:20',
+            'description'   =>'required',
+            'github_link'   =>'required|max:50',
+            'linkedin_link' =>'required|max:50',
+            'twitter_link'  =>'required|max:50',
+            'email'         =>'required|max:20',
+            'phone'         =>'required|max:13',
+            'address'       =>'required',
         ];
     }
     /**
@@ -99,16 +99,16 @@ class AboutController extends Controller
     public function updateRules():array
     {
          return [
-            'firstname'=>'max:20',
-            'lastname'=>'max:20',
-            'middlename'=>'max:20',
-            'description'=>'required',
-            'github_link'=>'max:50',
-            'linkedin_link'=>'max:50',
-            'twitter_link'=>'max:50',
-            'email'=>'max:20',
-            'phone'=>'max:13',
-            'address'=>'max:200',
+            'firstname'     =>'max:20',
+            'lastname'      =>'max:20',
+            'middlename'    =>'max:20',
+            'description'   =>'required',
+            'github_link'   =>'max:50',
+            'linkedin_link' =>'max:50',
+            'twitter_link'  =>'max:50',
+            'email'         =>'max:20',
+            'phone'         =>'max:13',
+            'address'       =>'max:200',
         ];
     }
 }

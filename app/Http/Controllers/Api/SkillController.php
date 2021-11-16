@@ -78,15 +78,15 @@ class SkillController extends Controller
     public function createRules():array
     {
         return [
-            'name'=>'required|min:3|max:20',
-            'progress'=>'required|max:5',
+            'name'      =>'required|min:3|max:20',
+            'progress'  =>'required|max:5',
         ];
     }
     public function updateRules():array
     {
         return [
-            'name'=>'min:3|max:20',
-            'progress'=>'max:5',
+            'name'      =>'min:3|max:20',
+            'progress'  =>'max:5',
         ];
     }
 

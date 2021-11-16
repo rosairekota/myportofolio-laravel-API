@@ -34,8 +34,8 @@ class TechnologyController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate($this->rules());
-        return new TechnologyResource(Technology::create($request->all()));
+        $newTechnology = $request->validate($this->updateRules());
+        return new TechnologyResource(Technology::create($newTechnology));
     }
 
     /**
@@ -59,8 +59,8 @@ class TechnologyController extends Controller
      */
     public function update(Request $request, Technology $technology)
     {
-        $request->validate($this->rules());
-        return new TechnologyResource($technology->update($request->all()));
+        $model = $request->validate($this->updateRules());
+        return new TechnologyResource($technology->update($model));
     }
 
     /**
@@ -74,11 +74,18 @@ class TechnologyController extends Controller
         return $technology->delete($technology);
     }
 
-    public function rules():array
+    public function createRules():array
     {
         return [
-            'name'=>'required',
-            'icon'=>'required',
+            'name'  =>'required|min:3|max:20',
+            'icon'  =>'required|min:3|max:4',
+        ];
+    }
+    public function updateRules():array
+    {
+        return [
+            'name'  =>'|min:3|max:20',
+            'icon'  =>'min:3|max:4',
         ];
     }
 }
