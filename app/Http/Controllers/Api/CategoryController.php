@@ -34,8 +34,8 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate($this->rules());
-        return new CategoryResource(Category::create($request->all()));
+        $newCategory=$request->validate($this->createRules());
+        return new CategoryResource(Category::create($newCategory));
     }
 
     /**
@@ -58,8 +58,8 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        $request->validate($this->rules());
-        return new CategoryResource($category->update($request->all()));
+         $newCategory=$request->validate($this->createRules());
+        return new CategoryResource($category->update($newCategory));
     }
 
     /**
@@ -75,10 +75,20 @@ class CategoryController extends Controller
     /**
      * @return Array
      */
-    public function rules():array
+    public function createRules():array
     {
         return [
             'title'=>'required|min:5',
         ];
     }
+      /**
+     * @return Array
+     */
+    public function updateRules():array
+    {
+        return [
+            'title'=>'min:5',
+        ];
+    }
+
 }

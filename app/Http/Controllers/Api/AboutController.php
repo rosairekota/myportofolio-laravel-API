@@ -13,7 +13,7 @@ class AboutController extends Controller
     /**
      * @OA\Get(
      *     path="/api/abouts",
-     *     @OA\Response(response="200", description="Display a listing of projects.")
+     *     @OA\Response(response="200", description="Display a listing of abouts.")
      * )
      */
 
@@ -35,8 +35,8 @@ class AboutController extends Controller
      */
     public function store(Request $request)
     {
-        $newProject=$request->validate($this->createRules());
-        return new AboutResource(About::create($newProject));
+        $newabout=$request->validate($this->createRules());
+        return new AboutResource(About::create($newabout));
     }
 
     /**
@@ -57,10 +57,10 @@ class AboutController extends Controller
      * @param  \App\Models\About  $about
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, About $about)
+    public function update(Request $request, About $model)
     {
-        $project=$request->validate($this->updateRules());
-        return new AboutResource($about->update($project));
+        $about=$request->validate($this->updateRules());
+        return new AboutResource($model->update($about));
     }
 
     /**
