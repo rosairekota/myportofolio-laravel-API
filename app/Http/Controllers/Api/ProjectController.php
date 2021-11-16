@@ -43,8 +43,8 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate($this->rules());
-        return new ProjectResource(Project::create($request->all()));
+        $newProject = $request->validate($this->rules());
+        return new ProjectResource(Project::create($newProject));
 
     }
 
@@ -77,8 +77,8 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        $request->validate($this->rules());
-        return new ProjectResource($project->update($request->all()));
+        $model = $request->validate($this->rules());
+        return new ProjectResource($project->update($model));
     }
 
     /**
@@ -92,7 +92,7 @@ class ProjectController extends Controller
        return new ProjectResource($project->delete($project));
     }
 
-   public function rules():array
+   public function createRules():array
     {
         return [
         'title'             =>'required',
@@ -100,6 +100,17 @@ class ProjectController extends Controller
             'image_url'     =>'required',
             'github_link'   =>'required',
             'website_link'  =>'required',
+        ];
+    }
+
+     public function updateRules():array
+    {
+        return [
+        'title'             =>'min:4',
+            'description'   =>'min:10',
+            'image_url'     =>'min:5|max:50',
+            'github_link'   =>'min:5|max:50',
+            'website_link'  =>'min:5|max:50',
         ];
     }
 
