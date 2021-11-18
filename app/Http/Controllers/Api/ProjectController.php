@@ -6,6 +6,7 @@ use App\Models\Project;
 use Illuminate\Http\Request;
 use OpenApi\Annotations\Get;
 use OpenApi\Annotations\Post;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProjectResource;
 
@@ -25,7 +26,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return ProjectResource::collection(Project::all());
+        return ProjectResource::collection(Project::with(['technologies'])->get());
     }
 
     /**
@@ -44,7 +45,14 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         $newProject = $request->validate($this->creteRules());
-        return new ProjectResource(Project::create($newProject));
+        try {
+              DB::beginTransaction();;
+               return new ProjectResource(Project::create($newProject));
+              DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollback();
+        }
+
 
     }
 
