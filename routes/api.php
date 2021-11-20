@@ -9,7 +9,7 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\TechnologyController;
 
 
-Route::get('/', fn()=> redirect('/api',301));
+
 
 // creation des routes pour les abouts:
 Route::apiResource('abouts', AboutController::class);
