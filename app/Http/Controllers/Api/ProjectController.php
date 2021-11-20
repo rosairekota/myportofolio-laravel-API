@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use Exception;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use OpenApi\Annotations\Get;
@@ -26,7 +27,13 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return ProjectResource::collection(Project::with(['technologies','categories'])->get());
+
+        try {
+            return ProjectResource::collection(Project::with(['technologies','categories'])->get());
+
+        } catch (\Throwable $th) {
+            throw new Exception("erreur lors de la consommation des projets", 1);
+        }
     }
 
     /**
@@ -46,9 +53,9 @@ class ProjectController extends Controller
     {
         $newProject = $request->validate($this->creteRules());
         try {
-              DB::beginTransaction();;
-               return new ProjectResource(Project::create($newProject));
-              DB::commit();
+            DB::beginTransaction();;
+            return new ProjectResource(Project::create($newProject));
+            DB::commit();
         } catch (\Throwable $th) {
             DB::rollback();
         }
@@ -73,7 +80,14 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        return new ProjectResource($project->load('technologies'));
+        try
+        {
+            return new ProjectResource($project->load(['technologies','categories']));
+
+        } catch (\Throwable $th) {
+            throw new Exception("Projet introuvable", 1);
+        }
+
     }
 
     /**
@@ -86,7 +100,15 @@ class ProjectController extends Controller
     public function update(Request $request, Project $project)
     {
         $model = $request->validate($this->updateRules());
-        return new ProjectResource($project->update($model));
+
+        try
+        {
+            return new ProjectResource($project->update($model));
+
+        } catch (\Throwable $th) {
+            throw new Exception("Projet introuvable", 1);
+        }
+
     }
 
     /**
@@ -97,10 +119,15 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-       return $project->delete($project);
+
+        try {
+            return $project->delete($project);
+        } catch (\Throwable $th) {
+            throw new Exception("Projet introuvable".$th, 1);
+        }
     }
 
-   public function createRules():array
+    public function createRules():array
     {
         return [
             'title'         =>'required',
