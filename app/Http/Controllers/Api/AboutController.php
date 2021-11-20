@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers\Api;
 
+use Exception;
 use App\Models\About;
 use Illuminate\Http\Request;
 use OpenApi\Annotations\Get;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AboutResource;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AboutController extends Controller
+
 {
     /**
      * @OA\Get(
@@ -24,7 +27,12 @@ class AboutController extends Controller
      */
     public function index()
     {
-        return AboutResource::collection(About::all());
+        try {
+            return AboutResource::collection(About::all());
+
+        } catch (\Throwable $th) {
+            throw new Exception("erreur lors de la consommation des abouts", 1);
+        }
     }
 
     /**
@@ -36,7 +44,13 @@ class AboutController extends Controller
     public function store(Request $request)
     {
         $newAbout = $request->validate($this->createRules());
-        return new AboutResource(About::create($newAbout));
+
+        try {
+            return new AboutResource(About::create($newAbout));
+
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 
     /**
@@ -47,7 +61,12 @@ class AboutController extends Controller
      */
     public function show(About $about)
     {
-        return new AboutResource($about);
+        try {
+            return new AboutResource($about);
+
+        } catch (\Throwable $th) {
+            throw new Exception("ressource introuvable !");
+        };
     }
 
     /**
@@ -60,7 +79,14 @@ class AboutController extends Controller
     public function update(Request $request, About $about)
     {
         $model = $request->validate($this->updateRules());
-        return new AboutResource($about->update($model));
+
+        try
+        {
+            return new AboutResource($about->update($model));
+
+        }catch (\Throwable $th) {
+            throw new Exception("Echec de mise a jour !");
+        };
     }
 
     /**
@@ -71,7 +97,14 @@ class AboutController extends Controller
      */
     public function destroy(About $about)
     {
-        return $about->delete($about);
+        try
+        {
+            return $about->delete($about);
+
+        }catch (\Throwable $th) {
+            throw new Exception("Échec de suppression !");
+        };
+
     }
 
 
@@ -98,7 +131,7 @@ class AboutController extends Controller
      */
     public function updateRules():array
     {
-         return [
+        return [
             'firstname'     =>'max:20',
             'lastname'      =>'max:20',
             'middlename'    =>'max:20',

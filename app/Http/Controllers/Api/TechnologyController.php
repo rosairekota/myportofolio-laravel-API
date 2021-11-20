@@ -23,7 +23,7 @@ class TechnologyController extends Controller
      */
     public function index()
     {
-        return TechnologyResource::collection(Technology::all());
+        return TechnologyResource::collection(Technology::with(['projects'])->get());
     }
 
     /**

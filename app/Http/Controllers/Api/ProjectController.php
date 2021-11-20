@@ -26,7 +26,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return ProjectResource::collection(Project::with(['technologies'])->get());
+        return ProjectResource::collection(Project::with(['technologies','categories'])->get());
     }
 
     /**
