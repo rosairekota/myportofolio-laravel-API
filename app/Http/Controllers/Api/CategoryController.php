@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\CategoryResource;
+use Exception;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\CategoryResource;
 
 class CategoryController extends Controller
 {
@@ -23,7 +24,13 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return CategoryResource::collection(Category::all());
+
+        try {
+            return CategoryResource::collection(Category::with(['projects'])->get());
+
+        } catch (\Throwable $th) {
+            throw new Exception("erreur lors de la consommation des categories", 1);
+        }
     }
 
     /**
@@ -35,7 +42,11 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $newCategory=$request->validate($this->createRules());
-        return new CategoryResource(Category::create($newCategory));
+        try {
+            return new CategoryResource(Category::create($newCategory));
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 
     /**
@@ -46,7 +57,13 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        return new CategoryResource($category);
+
+        try {
+            return new CategoryResource($category);
+
+        } catch (\Throwable $th) {
+            throw new Exception("ressource introuvable !");
+        };
     }
 
     /**
@@ -59,7 +76,12 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         $model=$request->validate($this->createRules());
-        return new CategoryResource($category->update($model));
+        try {
+            return new CategoryResource($category->update($model));
+
+        } catch (\Throwable $th) {
+            throw new Exception("Échec de mise a jour !");
+        };
     }
 
     /**
@@ -70,7 +92,14 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        return $category->delete($category);
+
+        try {
+            return $category->delete($category);
+
+        } catch (\Throwable $th) {
+            throw new Exception("Échec de mise a jour !");
+        }
+
     }
     /**
      * @return Array
@@ -81,7 +110,7 @@ class CategoryController extends Controller
             'title'=>'required|min:5',
         ];
     }
-      /**
+    /**
      * @return Array
      */
     public function updateRules():array
