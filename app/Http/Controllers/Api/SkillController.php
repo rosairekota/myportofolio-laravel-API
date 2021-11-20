@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use Exception;
 use App\Models\Skill;
 use App\Models\Technology;
 use Illuminate\Http\Request;
@@ -25,7 +26,12 @@ class SkillController extends Controller
      */
     public function index()
     {
-        return SkillResource::collection(Skill::all());
+
+        try {
+            return SkillResource::collection(Skill::all());
+        } catch (\Throwable $th) {
+            throw new Exception("Échec de la consommations des competences:".$th->getMessage(), 1);
+        }
     }
 
     /**
@@ -37,7 +43,12 @@ class SkillController extends Controller
     public function store(Request $request)
     {
         $newSkill = $request->validate($this->createRules());
-        return new SkillResource(Skill::create($newSkill));
+
+        try {
+            return new SkillResource(Skill::create($newSkill));
+        } catch (\Throwable $th) {
+            throw new Exception("Échec d'enregistrement de la competence:".$th->getMessage(), 1);
+        }
     }
 
     /**
@@ -48,7 +59,12 @@ class SkillController extends Controller
      */
     public function show(Skill $skill)
     {
-        return new SkillResource($skill);
+
+        try {
+            return new SkillResource($skill);
+        } catch (\Throwable $th) {
+            throw new Exception("Ce competence est introuvable:".$th->getMessage(), 1);
+        }
     }
 
     /**
@@ -61,7 +77,12 @@ class SkillController extends Controller
     public function update(Request $request, Skill $skill)
     {
         $model = $request->validate($this->updateRules);
-        return new SkillResource($skill->update($model));
+
+        try {
+            return new SkillResource($skill->update($model));
+        } catch (\Throwable $th) {
+            throw new Exception("Échec de mise a jour de la competence:".$th->getMessage(), 1);
+        }
     }
 
     /**
@@ -72,7 +93,13 @@ class SkillController extends Controller
      */
     public function destroy(Skill $skill)
     {
-        return $skill->delete($skill);
+
+        try {
+            return $skill->delete($skill);
+        } catch (\Throwable $th) {
+            throw new Exception("Échec de suppression de la competence:".$th->getMessage(), 1);
+        }
+
     }
 
     public function createRules():array
