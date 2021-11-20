@@ -123,7 +123,7 @@ class ProjectController extends Controller
         try {
             return $project->delete($project);
         } catch (\Throwable $th) {
-            throw new Exception("Projet introuvable".$th, 1);
+            throw new Exception("Projet introuvable".$th->getMessage(), 1);
         }
     }
 
