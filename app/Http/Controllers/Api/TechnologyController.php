@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use Exception;
 use App\Models\Technology;
 use Illuminate\Http\Request;
 use OpenApi\Annotations\Get;
@@ -23,7 +24,15 @@ class TechnologyController extends Controller
      */
     public function index()
     {
-        return TechnologyResource::collection(Technology::with(['projects'])->get());
+
+        try {
+            return TechnologyResource::collection(Technology::with(['projects'])->get());
+
+        }
+        catch (\Throwable $th)
+        {
+            throw new Exception("Échec de la consommations des technologies:".$th->getMessage(), 1);
+        }
     }
 
     /**
@@ -35,7 +44,12 @@ class TechnologyController extends Controller
     public function store(Request $request)
     {
         $newTechnology = $request->validate($this->updateRules());
-        return new TechnologyResource(Technology::create($newTechnology));
+
+        try {
+            return new TechnologyResource(Technology::create($newTechnology));
+        } catch (\Throwable $th) {
+            throw new Exception("Échec d'enregistrement de la technologie:".$th->getMessage(), 1);
+        }
     }
 
     /**
@@ -46,8 +60,11 @@ class TechnologyController extends Controller
      */
     public function show(Technology $technology)
     {
-
-        return new TechnologyResource($technology);
+        try {
+            return new TechnologyResource($technology->load('projects'));
+        } catch (\Throwable $th) {
+            throw new Exception("Échec! Technologie introuvable:".$th->getMessage(), 1);
+        }
     }
 
     /**
@@ -60,7 +77,13 @@ class TechnologyController extends Controller
     public function update(Request $request, Technology $technology)
     {
         $model = $request->validate($this->updateRules());
-        return new TechnologyResource($technology->update($model));
+
+        try {
+
+            return new TechnologyResource($technology->update($model));
+        } catch (\Throwable $th) {
+            throw new Exception("Échec de modification de la technologie:".$th->getMessage(), 1);
+        }
     }
 
     /**
@@ -71,7 +94,13 @@ class TechnologyController extends Controller
      */
     public function destroy(Technology $technology)
     {
-        return $technology->delete($technology);
+
+        try {
+
+            return $technology->delete($technology);
+        } catch (\Throwable $th) {
+            throw new Exception("Échec de suppression de la technologie:".$th->getMessage(), 1);
+        }
     }
 
     public function createRules():array
