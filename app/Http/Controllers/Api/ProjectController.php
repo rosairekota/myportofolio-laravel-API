@@ -73,7 +73,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        return new ProjectResource($project);
+        return new ProjectResource($project->load('technologies'));
     }
 
     /**
@@ -97,7 +97,7 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-       return new ProjectResource($project->delete($project));
+       return $project->delete($project);
     }
 
    public function createRules():array
