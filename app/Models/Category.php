@@ -14,6 +14,6 @@ class Category extends Model
     protected $fillable = ['title'];
 
     public function projects(){
-        return $this->belongsToMany(Project::class);
+        return $this->hasToMany(Project::class);
     }
-}
+ }

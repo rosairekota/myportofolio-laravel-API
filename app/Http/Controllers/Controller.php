@@ -10,7 +10,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 /**
- * @OA\Info(title="My Portofolio API", version="0.1")
+ * @OA\Info(title="My Portfolio API", version="0.1")
  */
 class Controller extends BaseController
 {
@@ -24,7 +24,7 @@ class Controller extends BaseController
             ],200);
         }
             return response()->json([
-                'success' => "Echec de la creation ".$message,
+                'success' => "Échec de la creation ".$message,
             ]);
     }
 }

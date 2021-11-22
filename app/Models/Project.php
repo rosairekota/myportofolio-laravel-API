@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Project extends Model
 {
     use HasFactory;
-    use SoftDeletes;
 
     protected $fillable = ['title','description','image_url','website_link','github_link'];
 
@@ -19,7 +18,7 @@ class Project extends Model
         return $this->belongsToMany(Technology::class);
     }
 
-    public function categories(){
-        return $this->belongsToMany(Category::class);
+    public function category(){
+        return $this->belongsTo(Category::class);
     }
 }

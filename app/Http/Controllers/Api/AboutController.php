@@ -43,10 +43,12 @@ class AboutController extends Controller
      */
     public function store(Request $request)
     {
-        $newAbout = $request->validate($this->createRules());
+       // $request->validate($this->createRules());
+        //return response()->json($request->all());
+        //$newAbout = $request->validate($this->createRules());
 
         try {
-            return new AboutResource(About::create($newAbout));
+            return new AboutResource(About::create($request->all()));
 
         } catch (\Throwable $th) {
             throw $th;

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Exception;
 use App\Models\Project;
+use App\Models\Technology;
 use Illuminate\Http\Request;
 use OpenApi\Annotations\Get;
 use OpenApi\Annotations\Post;
@@ -29,7 +30,7 @@ class ProjectController extends Controller
     {
 
         try {
-            return ProjectResource::collection(Project::with(['technologies','categories'])->get());
+            return ProjectResource::collection(Project::with(['technologies','category'])->get());
 
         } catch (\Throwable $th) {
             throw new Exception("erreur lors de la consommation des projets", 1);
@@ -51,10 +52,16 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        $newProject = $request->validate($this->creteRules());
+        $request->validate($this->creteRules());
         try {
-            DB::beginTransaction();;
-            return new ProjectResource(Project::create($newProject));
+            DB::beginTransaction();
+            $technology = Technology::findOrFail($request->get("technology_id"));
+            if ($technology) {
+
+                $technology->projects()->attach($request->get("technology_id"));
+                return new ProjectResource(Project::create($request->all()));
+            }
+
             DB::commit();
         } catch (\Throwable $th) {
             DB::rollback();
